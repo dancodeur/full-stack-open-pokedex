@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "outputDirectory": ".vercel/output",
   "builds": [
     {
       "src": "src/index.jsx",
