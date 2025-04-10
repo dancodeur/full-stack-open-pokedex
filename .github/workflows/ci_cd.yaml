@@ -5,11 +5,26 @@ on:
       - main
 jobs:
   build:
+    name: Lint code with ESLint
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Message | CI/CD ok
-        run: echo "hello world..."
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - name: Run ESLint
+        run: npm run lint
+        
+  unit_tests:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - run: npm run test --if-present
